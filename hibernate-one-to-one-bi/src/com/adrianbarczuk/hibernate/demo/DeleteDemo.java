@@ -26,7 +26,7 @@ public class DeleteDemo {
 			
 			//create the objects
 			Instructor instructor =
-					new Instructor("Adam", "Milosz", "mail@mail.pl");
+					new Instructor("Adrian", "Barczuk", "mail@mail.pl");
 			
 			InstructorDetail instructorDetail = 
 					new InstructorDetail(

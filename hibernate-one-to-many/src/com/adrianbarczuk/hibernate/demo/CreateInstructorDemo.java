@@ -4,11 +4,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.adrianbarczuk.hibernate.demo.entity.Course;
 import com.adrianbarczuk.hibernate.demo.entity.Instructor;
 import com.adrianbarczuk.hibernate.demo.entity.InstructorDetail;
 
 
-public class CreateDemo {
+public class CreateInstructorDemo {
 
 	public static void main(String[] args) {
 		
@@ -17,6 +18,7 @@ public class CreateDemo {
 								.configure("hibernate.cfg.xml")
 								.addAnnotatedClass(Instructor.class)
 								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
 								.buildSessionFactory();
 		
 		//create session
@@ -48,6 +50,7 @@ public class CreateDemo {
 			session.getTransaction().commit();
 			
 		} finally {
+			session.close();
 			factory.close();
 		}
 		

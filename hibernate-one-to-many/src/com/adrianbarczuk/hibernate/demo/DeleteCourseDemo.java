@@ -4,11 +4,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.adrianbarczuk.hibernate.demo.entity.Course;
 import com.adrianbarczuk.hibernate.demo.entity.Instructor;
 import com.adrianbarczuk.hibernate.demo.entity.InstructorDetail;
 
 
-public class CreateDemo {
+public class DeleteCourseDemo {
 
 	public static void main(String[] args) {
 		
@@ -17,6 +18,7 @@ public class CreateDemo {
 								.configure("hibernate.cfg.xml")
 								.addAnnotatedClass(Instructor.class)
 								.addAnnotatedClass(InstructorDetail.class)
+								.addAnnotatedClass(Course.class)
 								.buildSessionFactory();
 		
 		//create session
@@ -24,30 +26,18 @@ public class CreateDemo {
 		
 		try {
 			
-			//create the objects
-			Instructor instructor =
-					new Instructor("Adrian", "Barczuk", "mail@mail.pl");
-			
-			InstructorDetail instructorDetail = 
-					new InstructorDetail(
-							"youtubeAccount",
-							"programming");
-			
-			//associate the object
-			instructor.setInstructorDetail(instructorDetail);
-			
 			//start transaction
 			session.beginTransaction();
-				
-			//save the instructor
-			//also save instructorDetails
-			//because of CascadeType.ALL
-			session.save(instructor);
+			
+			Course course = session.get(Course.class, 10);
+			
+			session.delete(course);
 			
 			//commit transaction
 			session.getTransaction().commit();
 			
 		} finally {
+			session.close();
 			factory.close();
 		}
 		
